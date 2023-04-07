@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
+    <title>crop yield prediction details fillup</title>
+
+    <script>
+        var subjectObject = {
+            "Andaman and Nicobar Islands":['NICOBARS', 'NORTH AND MIDDLE ANDAMAN', 'SOUTH ANDAMANS'],
+            "Andhra Pradesh ": ['ANANTAPUR','CHITTOOR','EAST GODAVARI','GUNTUR','KADAPA','KRISHNA','KURNOOL','PRAKASAM','SPSR NELLORE','SRIKAKULAM','VISAKHAPATANAM','VIZIANAGARAM','WEST GODAVARI'],
+            "Arunachal Pradesh":['ANJAW','CHANGLANG','DIBANG VALLEY','EAST KAMENG','EAST SIANG','KURUNG KUMEY','LOHIT','LONGDING','LOWER DIBANG VALLEY','LOWER SUBANSIRI','NAMSAI','PAPUM PARE','TIRAP','UPPER SIANG','UPPER SUBANSIRI','WEST KAMENG','WEST SIANG'],
+            "Assam":['BARPETA','BONGAIGAON','CACHAR','CHIRANG','DARRANG','DHEMAJI','DHUBRI','DIBRUGARH','DIMA HASAO','GOALPARA','GOLAGHAT','HAILAKANDI','JORHAT','KAMRUP','KAMRUP METRO','KARBI ANGLONG','KARIMGANJ','KOKRAJHAR','LAKHIMPUR','MARIGAON','NAGAON','NALBARI','SIVASAGAR','SONITPUR','TINSUKIA','UDALGURI'],
+            "Bihar":['ARARIA','ARWAL','AURANGABAD','BANKA','BEGUSARAI','BHAGALPUR','BHOJPUR','BUXAR','DARBHANGA','GAYA','GOPALGANJ','JAMUI','JEHANABAD','KAIMUR (BHABUA)','KATIHAR','KHAGARIA','KISHANGANJ','LAKHISARAI','MADHEPURA','MADHUBANI','MUNGER','MUZAFFARPUR','NALANDA','NAWADA','PASHCHIM CHAMPARAN','PATNA','PURBI CHAMPARAN','PURNIA','ROHTAS','SAHARSA','SAMASTIPUR','SARAN','SHEIKHPURA','SHEOHAR','SITAMARHI','SIWAN','SUPAUL','VAISHALI'],
+            "Chandigarh":['CHANDIGARH'],
+            "Chhattisgarh":['BALOD','BALODA BAZAR','BALRAMPUR','BASTAR','BEMETARA','BIJAPUR','BILASPUR','DANTEWADA','DHAMTARI','DURG','GARIYABAND','JANJGIR-CHAMPA','JASHPUR','KABIRDHAM','KANKER','KONDAGAON','KORBA','KOREA','MAHASAMUND','MUNGELI','NARAYANPUR','RAIGARH','RAIPonloadUR','RAJNANDGAON','SUKMA','SURAJPUR','SURGUJA'],
+            "Dadra and Nagar Haveli":['DADRA AND NAGAR HAVELI'],
+            "Goa":['NORTH GOA', 'SOUTH GOA'],
+            "Gujarat":['AHMADABAD','AMRELI','ANAND','BANAS KANTHA','BHARUCH','BHAVNAGAR','DANG','DOHAD','GANDHINAGAR','JAMNAGAR','JUNAGADH','KACHCHH','KHEDA','MAHESANA','NARMADA','NAVSARI','PANCH MAHALS','PATAN','PORBANDAR','RAJKOT','SABAR KANTHA','SURAT','SURENDRANAGAR','TAPI','VADODARA','VALSAD'],
+            "Haryana":['AMBALA','BHIWANI','FARIDABAD','FATEHABAD','GURGAON','HISAR','JHAJJAR','JIND','KAITHAL','KARNAL','KURUKSHETRA','MAHENDRAGARH','MEWAT','PALWAL','PANCHKULA','PANIPAT','REWARI','ROHTAK','SIRSA','SONIPAT','YAMUNANAGAR'],
+            "Himachal Pradesh":['BILASPUR','CHAMBA','HAMIRPUR','KANGRA','KINNAUR','KULLU','LAHUL AND SPITI','MANDI','SHIMLA','SIRMAUR','SOLAN','UNA'],
+            "Jammu and Kashmir":['ANANTNAG','BADGAM','BANDIPORA','BARAMULLA','DODA','GANDERBAL','JAMMU','KARGIL','KATHUA','KISHTWAR','KULGAM','KUPWARA','LEH LADAKH','POONCH','PULWAMA','RAJAURI','RAMBAN','REASI','SAMBA','SHOPIAN','SRINAGAR','UDHAMPUR'],
+            "Jharkhand":['BOKARO','CHATRA','DEOGHAR','DHANBAD','DUMKA','EAST SINGHBUM','GARHWA','GIRIDIH','GODDA','GUMLA','HAZARIBAGH','JAMTARA','KHUNTI','KODERMA','LATEHAR','LOHARDAGA','PAKUR','PALAMU','RAMGARH','RANCHI','SAHEBGANJ','SARAIKELA KHARSAWAN','SIMDEGA','WEST SINGHBHUM'],
+            "Karnataka":['BAGALKOT','BANGALORE RURAL','BELGAUM','BELLARY','BENGALURU URBAN','BIDAR','BIJAPUR','CHAMARAJANAGAR','CHIKBALLAPUR','CHIKMAGALUR','CHITRADURGA','DAKSHIN KANNAD','DAVANGERE','DHARWAD','GADAG','GULBARGA','HASSAN','HAVERI','KODAGU','KOLAR','KOPPAL','MANDYA','MYSORE','RAICHUR','RAMANAGARA','SHIMOGA','TUMKUR','UDUPI','UTTAR KANNAD','YADGIR'],
+            "Kerala":['ALAPPUZHA','ERNAKULAM','IDUKKI','KANNUR','KASARAGOD','KOLLAM','KOTTAYAM','KOZHIKODE','MALAPPURAM','PALAKKAD','PATHANAMTHITTA','THIRUVANANTHAPURAM','THRISSUR','WAYANAD'],
+            "MadhyaPradesh":['AGAR MALWA','ALIRAJPUR','ANUPPUR','ASHOKNAGAR','BALAGHAT','BARWANI','BETUL','BHIND','BHOPAL','BURHANPUR','CHHATARPUR','CHHINDWARA','DAMOH','DATIA','DEWAS','DHAR','DINDORI','GUNA','GWALIOR','HARDA','HOSHANGABAD','INDORE','JABALPUR','JHABUA','KATNI','KHANDWA','KHARGONE','MANDLA','MANDSAUR','MORENA','NARSINGHPUR','NEEMUCH','PANNA','RAISEN','RAJGARH','RATLAM','REWA','SAGAR','SATNA','SEHORE','SEONI','SHAHDOL','SHAJAPUR','SHEOPUR','SHIVPURI','SIDHI','SINGRAULI','TIKAMGARH','UJJAIN','UMARIA','VIDISHA'],
+            "Maharashtra":['AHMEDNAGAR','AKOLA','AMRAVATI','AURANGABAD','BEED','BHANDARA','BULDHANA','CHANDRAPUR','DHULE','GADCHIROLI','GONDIA','HINGOLI','JALGAON','JALNA','KOLHAPUR','LATUR','NAGPUR','NANDED','NANDURBAR','NASHIK','OSMANABAD','PALGHAR','PARBHANI','PUNE','RAIGAD','RATNAGIRI','SANGLI','SATARA','SINDHUDURG','SOLAPUR','THANE','WARDHA','WASHIM','YAVATMAL'],
+            "Manipur":['BISHNUPUR','CHANDEL','CHURACHANDPUR','IMPHAL EAST','IMPHAL WEST','SENAPATI','TAMENGLONG','THOUBAL','UKHRUL'],
+            "Meghalaya":['EAST GARO HILLS','EAST JAINTIA HILLS','EAST KHASI HILLS','NORTH GARO HILLS','RI BHOI','SOUTH GARO HILLS','SOUTH WEST GARO HILLS','SOUTH WEST KHASI HILLS','WEST GARO HILLS','WEST JAINTIA HILLS','WEST KHASI HILLS'],
+            "Mizoram":['AIZAWL','CHAMPHAI','KOLASIB','LAWNGTLAI','LUNGLEI','MAMIT','SAIHA','SERCHHIP'],
+            "Nagaland":['DIMAPUR','KIPHIRE','KOHIMA','LONGLENG','MOKOKCHUNG','MON','PEREN','PHEK','TUENSANG','WOKHA','ZUNHEBOTO'],
+            "Odisha":['ANUGUL','BALANGIR','BALESHWAR','BARGARH','BHADRAK','BOUDH','CUTTACK','DEOGARH','DHENKANAL','GAJAPATI','GANJAM','JAGATSINGHAPUR','JAJAPUR','JHARSUGUDA','KALAHANDI','KANDHAMAL','KENDRAPARA','KENDUJHAR','KHORDHA','KORAPUT','MALKANGIRI','MAYURBHANJ','NABARANGPUR','NAYAGARH','NUAPADA','PURI','RAYAGADA','SAMBALPUR','SONEPUR','SUNDARGARH'],
+            "Puducherry":['KARAIKAL', 'MAHE', 'PONDICHERRY', 'YANAM'],
+            "Punjab":['AMRITSAR','BARNALA','BATHINDA','FATEHGARH SAHIB','FIROZEPUR','GURDASPUR','JALANDHAR','KAPURTHALA','LUDHIANA','MOGA','PATHANKOT','PATIALA','S.A.S NAGAR','SANGRUR','TARN TARAN'],
+            "Rajasthan":['AJMER','ALWAR','BANSWARA','BARAN','BARMER','BHARATPUR','BHILWARA','BIKANER','BUNDI','CHITTORGARH','CHURU','DAUSA','DHOLPUR','DUNGARPUR','GANGANAGAR','HANUMANGARH','JAIPUR','JAISALMER','JALORE','JHALAWAR','JHUNJHUNU','JODHPUR','KARAULI','KOTA','NAGAUR','PALI','PRATAPGARH','RAJSAMAND','SAWAI MADHOPUR','SIKAR','SIROHI','TONK','UDAIPUR'],
+            "Sikkim":['EAST DISTRICT', 'NORTH DISTRICT', 'SOUTH DISTRICT', 'WEST DISTRICT'],
+            "TamilNadu":['ARIYALUR','COIMBATORE','CUDDALORE','DHARMAPURI','DINDIGUL','ERODE','KANCHIPURAM','KANNIYAKUMARI','KARUR','KRISHNAGIRI','MADURAI','NAGAPATTINAM','NAMAKKAL','PERAMBALUR','PUDUKKOTTAI','RAMANATHAPURAM','SALEM','SIVAGANGA','THANJAVUR','THE NILGIRIS','THENI','THIRUVALLUR','THIRUVARUR','TIRUCHIRAPPALLI','TIRUNELVELI','TIRUPPUR','TIRUVANNAMALAI','TUTICORIN','VELLORE','VILLUPURAM','VIRUDHUNAGAR'],
+            "Telangana":['ADILABAD','KARIMNAGAR','KHAMMAM','MAHBUBNAGAR','MEDAK','NALGONDA','NIZAMABAD','RANGAREDDI','WARANGAL'],
+            "Tripura":['DHALAI','GOMATI','KHOWAI','NORTH TRIPURA','SEPAHIJALA','SOUTH TRIPURA','UNAKOTI','WEST TRIPURA'],
+            "Uttar Pradesh":['AGRA','ALIGARH','ALLAHABAD','AMBEDKAR NAGAR','AMETHI','AMROHA','AURAIYA','AZAMGARH','BAGHPAT','BAHRAICH','BALLIA','BALRAMPUR','BANDA','BARABANKI','BAREILLY','BASTI','BIJNOR','BUDAUN','BULANDSHAHR','CHANDAULI','CHITRAKOOT','DEORIA','ETAH','ETAWAH','FAIZABAD','FARRUKHABAD','FATEHPUR','FIROZABAD','GAUTAM BUDDHA NAGAR','GHAZIABAD','GHAZIPUR','GONDA','GORAKHPUR','HAMIRPUR','HAPUR','HARDOI','HATHRAS','JALAUN','JAUNPUR','JHANSI','KANNAUJ','KANPUR DEHAT','KANPUR NAGAR','KASGANJ','KAUSHAMBI','KHERI','KUSHI NAGAR','LALITPUR','LUCKNOW','MAHARAJGANJ','MAHOBA','MAINPURI','MATHURA','MAU','MEERUT','MIRZAPUR','MORADABAD','MUZAFFARNAGAR','PILIBHIT','PRATAPGARH','RAE BARELI','RAMPUR','SAHARANPUR','SAMBHAL','SANT KABEER NAGAR','SANT RAVIDAS NAGAR','SHAHJAHANPUR','SHAMLI','SHRAVASTI','SIDDHARTH NAGAR','SITAPUR','SONBHADRA','SULTANPUR','UNNAO','VARANASI'],
+            "Uttarakhand":['ALMORA','BAGESHWAR','CHAMOLI','CHAMPAWAT','DEHRADUN','HARIDWAR','NAINITAL','PAURI GARHWAL','PITHORAGARH','RUDRA PRAYAG','TEHRI GARHWAL','UDAM SINGH NAGAR','UTTAR KASHI'],
+            "West Bengal":['24 PARAGANAS NORTH','24 PARAGANAS SOUTH','BANKURA','BARDHAMAN','BIRBHUM','COOCHBEHAR','DARJEELING','DINAJPUR DAKSHIN','DINAJPUR UTTAR','HOOGHLY','HOWRAH','JALPAIGURI','MALDAH','MEDINIPUR EAST','MEDINIPUR WEST','MURSHIDABAD','NADIA','PURULIA']
+        }
+        window.onload = function() {
+          var subjectSel = document.getElementById("state");
+          var topicSel = document.getElementById("district");
+          for (var x in subjectObject) {
+            subjectSel.options[subjectSel.options.length] = new Option(x, x);
+          }
+          subjectSel.onchange = function() {
+            //empty Chapters- and Topics- dropdowns
+            // chapterSel.length = 1;
+            topicSel.length = 1;
+            //display correct values
+            for (var y in subjectObject[this.value]) {
+                // console.log(subjectObject[this.value][y])
+              topicSel.options[topicSel.options.length] = new Option(subjectObject[this.value][y],subjectObject[this.value][y]);
+            }
+          }
+        //   topicSel.onchange = function() {
+        //      //empty Chapters dropdown
+        //     chapterSel.length = 1;
+        //     //display correct values
+        //     var z = subjectObject[subjectSel.value][this.value];
+        //     for (var i = 0; i < z.length; i++) {
+        //       chapterSel.options[chapterSel.options.length] = new Option(z[i], z[i]);
+        //     }
+        //   }
+        }
+        </script>
+
+    <style>
+        .select{
+            width: 200px;
+            height: 30px;
+            margin: 0;
+            padding: 2;
+        }
+        input{
+            width:190px;
+            height:27px;
+            margin: 0;
+            padding: 2;
+        }
+        td{
+            margin: 0;
+            padding: 2;
+            justify-content: left;
+            text-decoration: solid;
+            font-size: larger;
+            font-weight: bolder;
+            font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h1><center>CROP YIELD PREDICTION</center></h1>
+    <center>
+        <form action="{{url_for('predict')}}" method="post">
+        <table cellspacing="2" cellpadding="5">
+        <tr>
+        <td>State</td>
+        <td><select class="select" id="state" name="state">
+            <option value="" selected="selected">Select State</option>
+        </select></td></tr>
+        <tr>
+            <td>District</td>
+            <td><select class="select" id="district" name="district">
+                <option value="" selected="selected">Select District</option>
+            </select></td>
+        
+        </tr>
+        <tr><td>Crop Name</td>
+            <td>  <select class="select" id="crop" name="crop">
+                <option hidden>Select Crop</option>
+                <option value="Rice">Rice</option>
+                <option value="Banana">Banana</option>
+                <option value="Maize">Maize</option>
+                <option value="Cotton(lint)">Cotton(lint)</option>
+                <option value="Onion">Onion</option>
+                <option value="Ragi">Ragi</option>
+                <option value="Potato">Potato</option>
+                <option value="Tomato">Tomato</option>
+                <option value="Drum Stick">Drum Stick</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><label>Area</label></td>
+            <td><input type="number" step="any" name="area"></td>
+        </tr>
+        <tr>
+            <td><label>Temperature</label></td>
+            <td><input type="number" step="any" name="Temperature"></td>
+        </tr>
+        <tr>
+            <td><label>Wind Speed</label></td>
+            <td><input type="number" step="any" name="Windspeed"></td>
+        </tr>
+        <tr>
+            <td><label>Humidity</label></td>
+            <td><input type="number" step="any" name="Humidity"></td>
+        </tr>
+        <tr>
+            <td><label>Nitrogen</label></td>
+            <td><input type="number" step="any" name="nitrogen"></td>
+        </tr>
+        <tr>
+            <td><label>Phosphorus</label></td>
+            <td><input type="number" step="any" name="phosphorus"></td>
+        </tr>
+        <tr>
+            <td><label>Potassium</label></td>
+            <td><input type="number" step="any" name="potassium"></td>
+        </tr>
+        <tr><td></td>
+        <td><button>Predict</button></td>
+    </tr>
+    </table>
+</form>
+
+<h2>{{Prediction_text}}</h2>
+</center>
+
+</body>
+</html>
